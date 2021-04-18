@@ -4,9 +4,10 @@ const loader = document.getElementById("loader");
 const error_box = document.getElementById("error_box");
 const table = document.getElementById("table");
 const form = document.getElementById("form");
+let btn_delete = document.getElementById("btn_delete");
 let user_name, user_year, user_country, user_email;
 
-btn_load_users.addEventListener("click", getDataFetch);
+btn_load_users.addEventListener("click", getDataFetch); // READ
 
 // Read data from Database
 function getDataFetch() {
@@ -17,6 +18,7 @@ function getDataFetch() {
       <th>Age</th>
       <th>Country</th>
       <th>E-mail</th>
+      <th>Action</th>
     </tr>`;
   loader.classList.add("active");
   let results;
@@ -36,6 +38,7 @@ function getDataFetch() {
         element.innerHTML += "<td>" + result.year + "</td>";
         element.innerHTML += "<td>" + result.country + "</td>";
         element.innerHTML += "<td>" + result.email + "</td>";
+        element.innerHTML += `<td> <button type="submit" onclick=deleteUser(${result.id}) class="btn_delete">Delete</button></td>`;
         document.getElementById("table").appendChild(element);
       });
     })
@@ -45,6 +48,7 @@ function getDataFetch() {
     });
 }
 form.addEventListener("submit", function (event) {
+  // CREATE
   addUsers(event);
 });
 async function addUsers(event) {
@@ -102,7 +106,6 @@ async function addUsers(event) {
     console.log(error);
   }
 }
-
 function validForm() {
   if (user_name == "") {
     return false;
@@ -111,6 +114,26 @@ function validForm() {
   else if (user_email == "") return false;
   return true;
 }
+function deleteUser(id) {
+  console.log("This document will be removed: ", id);
+  try {
+    let params = `id=${id}`;
+    fetch("php/deleteUser.php", {
+      method: "POST",
+      headers: {
+        //"Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: params,
+    }).then(() => {
+      getDataFetch();
+      console.log("Deleted successfully");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 /*  fetch() structure
 
 const response = await fetch(url, {

@@ -37,6 +37,18 @@ header h1 {
 	padding: 0 20px;
 	border-radius:100px;
 }
+.btn_delete {
+	font-size: 14px;
+	font-family: 'Montserrat', sans-serif;
+	border: none;
+	color: #fff;
+	background-color: #d15131 !important; 
+	cursor: pointer;
+	height: 40px;
+	line-height: 50%;
+	padding: 0 20px;
+	border-radius:3px;
+}
 
 header button.active {
 	display: inline-block;

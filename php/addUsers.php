@@ -1,12 +1,13 @@
 <?php
 // This module INSERTS a new User to database
-// error_reporting(0); // To prevent sending errors instead $response event
+error_reporting(0); // To prevent sending errors instead $response event
 header('Content-type: application/json; charset=utf-8');
 $name = $_POST['name'];
 $year = $_POST['year'];
 $country = $_POST['country'];
 $email = $_POST['email'];
 var_dump($_POST);
+
 function validateData($name, $year, $country, $email)
 {
     if ($name == '') {
